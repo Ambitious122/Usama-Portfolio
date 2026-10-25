@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; background: #0B1F36; }
+body { background: transparent; color: #E8EEF5; font-family: "IBM Plex Sans", system-ui, sans-serif; margin: 0; overflow-x: hidden; }
+
+/* Page-wide ambient background */
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(900px 600px at 10% 0%, #1B4F9C55, transparent 65%),
+              radial-gradient(800px 600px at 100% 50%, #FFC80014, transparent 65%),
+              radial-gradient(900px 700px at 0% 100%, #1B4F9C45, transparent 65%); }
+body::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .08; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+
+.grid-bg { background-image: linear-gradient(#24415F55 1px, transparent 1px), linear-gradient(90deg, #24415F55 1px, transparent 1px); background-size: 40px 40px; }
+:focus-visible { outline: 2px solid #FFC800; outline-offset: 3px; }
+
+@keyframes marq { to { transform: translateX(-50%); } }
+.marq { animation: marq 38s linear infinite; width: max-content; }
+.mq:hover .marq { animation-play-state: paused; }
+
+@keyframes draw { from { stroke-dashoffset: 900; } to { stroke-dashoffset: 0; } }
+.road { stroke-dasharray: 900; animation: draw 2.2s ease-out .2s both; }
+
+.aurora { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.aurora i { position: absolute; border-radius: 50%; filter: blur(80px); will-change: transform; }
+.a1 { width: 46vw; height: 46vw; max-width: 620px; max-height: 620px; left: -8%; top: -30%; background: radial-gradient(circle, #2F6FD6aa, transparent 65%); animation: drift1 26s ease-in-out infinite alternate; }
+.a2 { width: 38vw; height: 38vw; max-width: 520px; max-height: 520px; right: -6%; bottom: -25%; background: radial-gradient(circle, #FFC80040, transparent 65%); animation: drift2 32s ease-in-out infinite alternate; }
+@keyframes drift1 { to { transform: translate(8vw, 6vh) scale(1.15); } }
+@keyframes drift2 { to { transform: translate(-7vw, -5vh) scale(1.2); } }
+
+.cue b { display: block; width: 1px; height: 36px; background: #24415F; position: relative; overflow: hidden; }
+.cue b::after { content: ""; position: absolute; left: 0; top: -14px; width: 1px; height: 14px; background: #FFC800; animation: cue 2.2s ease-in-out infinite; }
+@keyframes cue { to { top: 100%; } }
+
+@keyframes fade { from { opacity: 0; transform: translateY(8px); } }
+.menu-in { animation: fade .45s cubic-bezier(.2, .7, .2, 1) both; }
+.fade { animation: fade .4s cubic-bezier(.2, .7, .2, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marq, .road, .aurora i, .cue b::after, .menu-in, .fade, .animate-spin { animation: none !important; }
+  html { scroll-behavior: auto; }
+}
